@@ -27,37 +27,35 @@ public class AppGUI {
         listaPoblaciones = new JList<>(listaModelo);
         frame.add(new JScrollPane(listaPoblaciones), BorderLayout.CENTER);
 
-        JMenuBar menuBar = new JMenuBar();
-        frame.setJMenuBar(menuBar);
-        JMenu fileMenu = new JMenu("Archivo");
-        menuBar.add(fileMenu);
+        JPanel buttonPanel = new JPanel();
+        frame.add(buttonPanel, BorderLayout.SOUTH);
 
-        JMenuItem openItem = new JMenuItem("Abrir");
-        JMenuItem newItem = new JMenuItem("Nuevo Experimento");
-        JMenuItem addItem = new JMenuItem("Añadir Población");
-        JMenuItem deleteItem = new JMenuItem("Eliminar Población");
-        JMenuItem detailItem = new JMenuItem("Detalles de Población");
-        JMenuItem saveItem = new JMenuItem("Guardar");
-        JMenuItem saveAsItem = new JMenuItem("Guardar Como");
+        JButton openButton = new JButton("Abrir");
+        JButton newButton = new JButton("Nuevo Experimento");
+        JButton addButton = new JButton("Añadir Población");
+        JButton deleteButton = new JButton("Eliminar Población");
+        JButton detailButton = new JButton("Detalles de Población");
+        JButton saveButton = new JButton("Guardar");
+        JButton saveAsButton = new JButton("Guardar Como");
 
-        fileMenu.add(openItem);
-        fileMenu.add(newItem);
-        fileMenu.add(addItem);
-        fileMenu.add(deleteItem);
-        fileMenu.add(detailItem);
-        fileMenu.add(saveItem);
-        fileMenu.add(saveAsItem);
+        buttonPanel.add(openButton);
+        buttonPanel.add(newButton);
+        buttonPanel.add(addButton);
+        buttonPanel.add(deleteButton);
+        buttonPanel.add(detailButton);
+        buttonPanel.add(saveButton);
+        buttonPanel.add(saveAsButton);
 
-        openItem.addActionListener(this::openExperiment);
-        newItem.addActionListener(e -> {
+        openButton.addActionListener(this::openExperiment);
+        newButton.addActionListener(e -> {
             experimento = new Experimento();
             listaModelo.clear();
         });
-        addItem.addActionListener(this::addPoblacion);
-        deleteItem.addActionListener(this::deletePoblacion);
-        detailItem.addActionListener(this::showDetails);
-        saveItem.addActionListener(e -> saveExperiment(false));
-        saveAsItem.addActionListener(e -> saveExperiment(true));
+        addButton.addActionListener(this::addPoblacion);
+        deleteButton.addActionListener(this::deletePoblacion);
+        detailButton.addActionListener(this::showDetails);
+        saveButton.addActionListener(e -> saveExperiment(false));
+        saveAsButton.addActionListener(e -> saveExperiment(true));
 
         frame.setVisible(true);
     }
