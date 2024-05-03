@@ -1,11 +1,13 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Experimento {
+public class Experimento implements Serializable {
     private List<Poblacion> poblaciones;
+    private String archivoRuta;
 
     public Experimento() {
-        this.poblaciones = new ArrayList<>();
+        poblaciones = new ArrayList<>();
     }
 
     public void addPoblacion(Poblacion poblacion) {
@@ -16,20 +18,15 @@ public class Experimento {
         poblaciones.removeIf(p -> p.getNombre().equals(nombre));
     }
 
-    public List<String> getPoblacionesNombres() {
-        List<String> nombres = new ArrayList<>();
-        for (Poblacion p : poblaciones) {
-            nombres.add(p.getNombre());
-        }
-        return nombres;
+    public List<Poblacion> getPoblaciones() {
+        return poblaciones;
     }
 
-    public Poblacion getPoblacion(String nombre) {
-        for (Poblacion p : poblaciones) {
-            if (p.getNombre().equals(nombre)) {
-                return p;
-            }
-        }
-        return null; // o lanzar una excepción si se prefiere
+    public String getArchivoRuta() {
+        return archivoRuta;
+    }
+
+    public void setArchivoRuta(String archivoRuta) {
+        this.archivoRuta = archivoRuta;
     }
 }
