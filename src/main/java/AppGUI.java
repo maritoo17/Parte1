@@ -60,6 +60,7 @@ public class AppGUI {
         frame.setVisible(true);
     }
 
+
     private void openExperiment(ActionEvent e) {
         JFileChooser fileChooser = new JFileChooser();
         if (fileChooser.showOpenDialog(frame) == JFileChooser.APPROVE_OPTION) {
