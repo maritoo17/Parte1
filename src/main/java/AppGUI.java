@@ -23,6 +23,20 @@ public class AppGUI {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1200, 1000);
 
+        ImageIcon imageIcon = new ImageIcon(getClass().getResource("/uax .png"));
+        Image image = imageIcon.getImage();
+
+        JPanel contentPane = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.drawImage(image, 0, 0, this);
+            }
+        };
+
+        frame.setContentPane(contentPane);
+        contentPane.setLayout(new BorderLayout());
+
         listaModelo = new DefaultListModel<>();
         listaPoblaciones = new JList<>(listaModelo);
         frame.add(new JScrollPane(listaPoblaciones), BorderLayout.CENTER);
