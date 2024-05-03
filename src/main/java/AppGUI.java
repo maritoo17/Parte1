@@ -153,7 +153,22 @@ public class AppGUI {
                     .orElse(null);
 
             if (poblacion != null) {
-                JOptionPane.showMessageDialog(frame, poblacion.toString(), "Detalles de Población", JOptionPane.INFORMATION_MESSAGE);
+                String details = String.format(
+                        "Nombre: %s\nFecha Inicio: %s\nFecha Fin: %s\nBacterias Iniciales: %d\n" +
+                                "Temperatura: %.1f\nLuminosidad: %s\nComida Inicial: %d\nDía Incremento: %d\n" +
+                                "Comida Incremento: %d\nComida Final: %d",
+                        poblacion.getNombre(),
+                        sdf.format(poblacion.getFechaInicio()),
+                        sdf.format(poblacion.getFechaFin()),
+                        poblacion.getBacteriasIniciales(),
+                        poblacion.getTemperatura(),
+                        poblacion.getLuminosidad(),
+                        poblacion.getComidaInicial(),
+                        poblacion.getDiaIncremento(),
+                        poblacion.getComidaIncremento(),
+                        poblacion.getComidaFinal()
+                );
+                JOptionPane.showMessageDialog(frame, details, "Detalles de Población", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(frame, "Población no encontrada.", "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -161,6 +176,7 @@ public class AppGUI {
             JOptionPane.showMessageDialog(frame, "Seleccione una población para ver detalles.", "Error", JOptionPane.WARNING_MESSAGE);
         }
     }
+
 
     private void saveExperiment(boolean saveAs) {
         if (saveAs || experimento.getArchivoRuta() == null) {
