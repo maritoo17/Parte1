@@ -21,7 +21,7 @@ public class AppGUI {
     private void prepareGUI() {
         frame = new JFrame("Gestor de Experimentos con Bacterias");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(600, 400);
+        frame.setSize(1200, 1000);
 
         listaModelo = new DefaultListModel<>();
         listaPoblaciones = new JList<>(listaModelo);
