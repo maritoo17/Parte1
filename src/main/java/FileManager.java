@@ -18,4 +18,12 @@ public class FileManager {
             oos.writeObject(experimento);
         }
     }
+
+    public Experimento getExperimento() {
+        return experimento;
+    }
+
+    public void setExperimento(Experimento experimento) {
+        this.experimento = experimento;
+    }
 }
