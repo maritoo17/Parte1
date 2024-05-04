@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
 
 public class AppGUI {
     private JFrame frame;
@@ -19,30 +21,17 @@ public class AppGUI {
     }
 
     private void prepareGUI() {
+
         frame = new JFrame("Gestor de Experimentos con Bacterias");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1200, 1000);
 
-        try {
-            ImageIcon imageIcon = new ImageIcon(getClass().getResource("/uax.png"));
-            Image image = imageIcon.getImage();
-
-            JPanel contentPane = new JPanel() {
-                @Override
-                protected void paintComponent(Graphics g) {
-                    super.paintComponent(g);
-                    g.drawImage(image, 0, 0, this);
-                }
-            };
-
-            frame.setContentPane(contentPane);
-            contentPane.setLayout(new BorderLayout());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
         listaModelo = new DefaultListModel<>();
         listaPoblaciones = new JList<>(listaModelo);
+
+        int fontSize = 18;
+        Font newFont = new Font("Arial", Font.PLAIN, fontSize);
+        listaPoblaciones.setFont(newFont);
         frame.add(new JScrollPane(listaPoblaciones), BorderLayout.CENTER);
 
         JPanel buttonPanel = new JPanel();
