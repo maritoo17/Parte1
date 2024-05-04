@@ -14,8 +14,6 @@ public class AppGUI {
     private JList<String> listaPoblaciones;
     private Experimento experimento;
     private final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-    private final Color redColor = new Color(255, 0, 0);
-    private final Color cobaltBlue = new Color(0, 71, 171);
 
     public AppGUI() {
         prepareGUI();
@@ -47,10 +45,10 @@ public class AppGUI {
         JButton openButton = createStyledButton("Abrir", null);
         JButton newButton = createStyledButton("Nuevo Experimento", null);
         JButton addButton = createStyledButton("Añadir Población", null);
-        JButton deleteButton = createStyledButton("Eliminar Población", redColor);
+        JButton deleteButton = createStyledButton("Eliminar Población", new Color(255, 0, 0));
         JButton detailButton = createStyledButton("Detalles de Población", null);
         JButton saveButton = createStyledButton("Guardar", null);
-        JButton saveAsButton = createStyledButton("Guardar Como", cobaltBlue);
+        JButton saveAsButton = createStyledButton("Guardar Como", new Color(0, 71, 171));
 
         buttonPanel.add(openButton);
         buttonPanel.add(newButton);
@@ -85,11 +83,6 @@ public class AppGUI {
         button.setFocusPainted(false);
         return button;
     }
-
-
-
-
-
 
     private void openExperiment(ActionEvent e) {
         JFileChooser fileChooser = new JFileChooser();
@@ -175,8 +168,6 @@ public class AppGUI {
         }
     }
 
-
-
     private void deletePoblacion(ActionEvent e) {
         String selected = listaPoblaciones.getSelectedValue();
         if (selected != null) {
@@ -225,8 +216,6 @@ public class AppGUI {
             JOptionPane.showMessageDialog(frame, "Seleccione una población para ver detalles.", "Error", JOptionPane.WARNING_MESSAGE);
         }
     }
-
-
 
     private void saveExperiment(boolean saveAs) {
         if (saveAs || experimento.getArchivoRuta() == null) {
