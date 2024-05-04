@@ -12,6 +12,7 @@ public class Poblacion implements Serializable {
     private int diaIncremento;
     private int comidaIncremento;
     private int comidaFinal;
+    private int[] comidaPorDia = new int[30];
 
     public Poblacion(String nombre, Date fechaInicio, Date fechaFin, int bacteriasIniciales,
                      double temperatura, String luminosidad, int comidaInicial, int diaIncremento,
@@ -26,6 +27,7 @@ public class Poblacion implements Serializable {
         this.diaIncremento = diaIncremento;
         this.comidaIncremento = comidaIncremento;
         this.comidaFinal = comidaFinal;
+        this.comidaPorDia[0] = comidaInicial;
     }
 
     public String getNombre() {
@@ -108,5 +110,19 @@ public class Poblacion implements Serializable {
     public void setComidaFinal(int comidaFinal) {
         this.comidaFinal = comidaFinal;
     }
+
+    public void calcularComidaPorDia() {
+        comidaPorDia[0] = comidaInicial;
+        int incrementoDiario = (comidaIncremento - comidaInicial) / diaIncremento;
+        for (int i = 1; i < 30; i++) {
+            if (i <= diaIncremento) {
+                comidaPorDia[i] = comidaPorDia[i - 1] + incrementoDiario;
+            } else if (i > diaIncremento && i < 30) {
+                comidaPorDia[i] = comidaPorDia[i - 1];
+            }
+        }
+        comidaPorDia[29] = comidaFinal;
+    }
+}
 }
 
