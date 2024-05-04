@@ -21,29 +21,34 @@ public class AppGUI {
     }
 
     private void prepareGUI() {
-
         frame = new JFrame("Gestor de Experimentos con Bacterias");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1200, 1000);
+        frame.getContentPane().setBackground(new Color(230, 240, 255));
 
         listaModelo = new DefaultListModel<>();
         listaPoblaciones = new JList<>(listaModelo);
-
-        int fontSize = 18;
-        Font newFont = new Font("Arial", Font.PLAIN, fontSize);
+        Font newFont = new Font("Arial", Font.PLAIN, 18);
         listaPoblaciones.setFont(newFont);
+        listaPoblaciones.setBackground(Color.WHITE);
+        listaPoblaciones.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createEmptyBorder(5, 5, 5, 5),
+                BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1)
+        ));
         frame.add(new JScrollPane(listaPoblaciones), BorderLayout.CENTER);
 
         JPanel buttonPanel = new JPanel();
+        buttonPanel.setBackground(new Color(230, 240, 255));
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         frame.add(buttonPanel, BorderLayout.SOUTH);
 
-        JButton openButton = new JButton("Abrir");
-        JButton newButton = new JButton("Nuevo Experimento");
-        JButton addButton = new JButton("Añadir Población");
-        JButton deleteButton = new JButton("Eliminar Población");
-        JButton detailButton = new JButton("Detalles de Población");
-        JButton saveButton = new JButton("Guardar");
-        JButton saveAsButton = new JButton("Guardar Como");
+        JButton openButton = createStyledButton("Abrir", null);
+        JButton newButton = createStyledButton("Nuevo Experimento", null);
+        JButton addButton = createStyledButton("Añadir Población", null);
+        JButton deleteButton = createStyledButton("Eliminar Población", Color.RED);
+        JButton detailButton = createStyledButton("Detalles de Población", null);
+        JButton saveButton = createStyledButton("Guardar", null);
+        JButton saveAsButton = createStyledButton("Guardar Como", Color.BLUE);
 
         buttonPanel.add(openButton);
         buttonPanel.add(newButton);
@@ -67,6 +72,26 @@ public class AppGUI {
         frame.setVisible(true);
     }
 
+    private JButton createStyledButton(String text, Color backgroundColor) {
+        JButton button = new JButton(text);
+        if (backgroundColor != null) {
+            button.setBackground(backgroundColor);
+            button.setOpaque(true);
+            button.setContentAreaFilled(true);
+            button.setBorderPainted(true);
+        } else {
+            button.setOpaque(false);
+            button.setContentAreaFilled(false);
+            button.setBorderPainted(false);
+        }
+        button.setForeground(Color.BLACK);
+        button.setFont(new Font("Arial", Font.BOLD, 12));
+        button.setFocusPainted(false);
+        return button;
+    }
+
+
+
 
     private void openExperiment(ActionEvent e) {
         JFileChooser fileChooser = new JFileChooser();
@@ -84,7 +109,7 @@ public class AppGUI {
     private void addPoblacion(ActionEvent e) {
         JTextField nameField = new JTextField();
         JTextField startDateField = new JTextField(sdf.format(new Date()));
-        JTextField daysField = new JTextField();  // Usuário agora insere o número de dias
+        JTextField daysField = new JTextField();
         JTextField initialCountField = new JTextField();
         JTextField tempField = new JTextField();
         String[] luminosityOptions = {"Alta", "Media", "Baja"};
@@ -99,7 +124,7 @@ public class AppGUI {
         panel.add(nameField);
         panel.add(new JLabel("Fecha Inicio:"));
         panel.add(startDateField);
-        panel.add(new JLabel("Duración (días):"));  // Campo para duración en días
+        panel.add(new JLabel("Duración (días):"));
         panel.add(daysField);
         panel.add(new JLabel("Bacterias Iniciales:"));
         panel.add(initialCountField);
@@ -143,6 +168,7 @@ public class AppGUI {
 
                 Poblacion poblacion = new Poblacion(nombre, startDate, endDate, initialCount, temperature, luminosity,
                         initialFood, incrementDay, incrementFood, finalFood);
+                poblacion.calcularComidaPorDia();
                 experimento.addPoblacion(poblacion);
                 updateList();
             } catch (ParseException | NumberFormatException ex) {
