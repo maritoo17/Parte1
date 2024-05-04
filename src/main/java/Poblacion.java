@@ -73,6 +73,7 @@ public class Poblacion implements Serializable {
     public int[] getComidaPorDia() {
         return comidaPorDia;
     }
+
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
@@ -119,15 +120,24 @@ public class Poblacion implements Serializable {
 
     public void calcularComidaPorDia() {
         comidaPorDia[0] = comidaInicial;
-        int incrementoDiario = (comidaIncremento - comidaInicial) / diaIncremento;
-        for (int i = 1; i < 30; i++) {
-            if (i <= diaIncremento) {
-                comidaPorDia[i] = comidaPorDia[i - 1] + incrementoDiario;
-            } else if (i > diaIncremento && i < 30) {
-                comidaPorDia[i] = comidaPorDia[i - 1];
+
+        if (diaIncremento > 0) {
+            double incrementoDiario = (double) (comidaIncremento - comidaInicial) / diaIncremento;
+            for (int i = 1; i <= diaIncremento; i++) {
+                comidaPorDia[i] = comidaPorDia[i - 1] + (int) Math.round(incrementoDiario);
             }
         }
+
+        int díasRestantes = 29 - diaIncremento;
+        if (díasRestantes > 0) {
+            double incrementoDiarioFinal = (double) (comidaFinal - comidaPorDia[diaIncremento]) / díasRestantes;
+            for (int i = diaIncremento + 1; i < 30; i++) {
+                comidaPorDia[i] = comidaPorDia[i - 1] + (int) Math.round(incrementoDiarioFinal);
+            }
+        }
+
         comidaPorDia[29] = comidaFinal;
     }
 }
+
 
