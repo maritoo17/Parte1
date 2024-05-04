@@ -7,7 +7,7 @@ public class Poblacion implements Serializable {
     private Date fechaFin;
     private int bacteriasIniciales;
     private double temperatura;
-    private String luminosidad;  // Alta, Media, Baja
+    private String luminosidad;
     private int comidaInicial;
     private int diaIncremento;
     private int comidaIncremento;

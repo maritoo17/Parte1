@@ -5,8 +5,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
+import java.util.concurrent.TimeUnit;
 
 public class AppGUI {
     private JFrame frame;
@@ -122,6 +121,14 @@ public class AppGUI {
                 String nombre = nameField.getText();
                 Date startDate = sdf.parse(startDateField.getText());
                 Date endDate = sdf.parse(endDateField.getText());
+                long diffInMillies = Math.abs(endDate.getTime() - startDate.getTime());
+                long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+
+                if (diff > 30) {
+                    JOptionPane.showMessageDialog(frame, "El período del experimento no puede exceder los 30 días.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
                 int initialCount = Integer.parseInt(initialCountField.getText());
                 double temperature = Double.parseDouble(tempField.getText());
                 String luminosity = (String) luminosityBox.getSelectedItem();
@@ -132,7 +139,6 @@ public class AppGUI {
 
                 Poblacion poblacion = new Poblacion(nombre, startDate, endDate, initialCount, temperature, luminosity,
                         initialFood, incrementDay, incrementFood, finalFood);
-                poblacion.calcularComidaPorDia();
                 experimento.addPoblacion(poblacion);
                 updateList();
             } catch (ParseException | NumberFormatException ex) {
@@ -140,6 +146,7 @@ public class AppGUI {
             }
         }
     }
+
 
     private void deletePoblacion(ActionEvent e) {
         String selected = listaPoblaciones.getSelectedValue();
