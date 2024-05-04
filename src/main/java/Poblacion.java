@@ -124,5 +124,4 @@ public class Poblacion implements Serializable {
         comidaPorDia[29] = comidaFinal;
     }
 }
-}
 

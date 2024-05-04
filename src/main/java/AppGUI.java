@@ -132,6 +132,7 @@ public class AppGUI {
 
                 Poblacion poblacion = new Poblacion(nombre, startDate, endDate, initialCount, temperature, luminosity,
                         initialFood, incrementDay, incrementFood, finalFood);
+                poblacion.calcularComidaPorDia();
                 experimento.addPoblacion(poblacion);
                 updateList();
             } catch (ParseException | NumberFormatException ex) {
