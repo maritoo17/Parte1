@@ -4,8 +4,9 @@ import java.awt.event.*;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
+
 
 public class AppGUI {
     private JFrame frame;
@@ -83,7 +84,7 @@ public class AppGUI {
     private void addPoblacion(ActionEvent e) {
         JTextField nameField = new JTextField();
         JTextField startDateField = new JTextField(sdf.format(new Date()));
-        JTextField endDateField = new JTextField(sdf.format(new Date()));
+        JTextField daysField = new JTextField();  // Usuário agora insere o número de dias
         JTextField initialCountField = new JTextField();
         JTextField tempField = new JTextField();
         String[] luminosityOptions = {"Alta", "Media", "Baja"};
@@ -98,8 +99,8 @@ public class AppGUI {
         panel.add(nameField);
         panel.add(new JLabel("Fecha Inicio:"));
         panel.add(startDateField);
-        panel.add(new JLabel("Fecha Fin:"));
-        panel.add(endDateField);
+        panel.add(new JLabel("Duración (días):"));  // Campo para duración en días
+        panel.add(daysField);
         panel.add(new JLabel("Bacterias Iniciales:"));
         panel.add(initialCountField);
         panel.add(new JLabel("Temperatura:"));
@@ -120,14 +121,17 @@ public class AppGUI {
             try {
                 String nombre = nameField.getText();
                 Date startDate = sdf.parse(startDateField.getText());
-                Date endDate = sdf.parse(endDateField.getText());
-                long diffInMillies = Math.abs(endDate.getTime() - startDate.getTime());
-                long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+                int durationDays = Integer.parseInt(daysField.getText());
 
-                if (diff > 30) {
+                if (durationDays > 30) {
                     JOptionPane.showMessageDialog(frame, "El período del experimento no puede exceder los 30 días.", "Error", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
+
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(startDate);
+                calendar.add(Calendar.DAY_OF_MONTH, durationDays);
+                Date endDate = calendar.getTime();
 
                 int initialCount = Integer.parseInt(initialCountField.getText());
                 double temperature = Double.parseDouble(tempField.getText());
@@ -146,6 +150,7 @@ public class AppGUI {
             }
         }
     }
+
 
 
     private void deletePoblacion(ActionEvent e) {
