@@ -14,6 +14,8 @@ public class AppGUI {
     private JList<String> listaPoblaciones;
     private Experimento experimento;
     private final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    private final Color redColor = new Color(255, 0, 0);
+    private final Color cobaltBlue = new Color(0, 71, 171);
 
     public AppGUI() {
         prepareGUI();
@@ -45,10 +47,10 @@ public class AppGUI {
         JButton openButton = createStyledButton("Abrir", null);
         JButton newButton = createStyledButton("Nuevo Experimento", null);
         JButton addButton = createStyledButton("Añadir Población", null);
-        JButton deleteButton = createStyledButton("Eliminar Población", Color.RED);
+        JButton deleteButton = createStyledButton("Eliminar Población", redColor);
         JButton detailButton = createStyledButton("Detalles de Población", null);
         JButton saveButton = createStyledButton("Guardar", null);
-        JButton saveAsButton = createStyledButton("Guardar Como", Color.BLUE);
+        JButton saveAsButton = createStyledButton("Guardar Como", cobaltBlue);
 
         buttonPanel.add(openButton);
         buttonPanel.add(newButton);
@@ -74,21 +76,17 @@ public class AppGUI {
 
     private JButton createStyledButton(String text, Color backgroundColor) {
         JButton button = new JButton(text);
-        if (backgroundColor != null) {
-            button.setBackground(backgroundColor);
-            button.setOpaque(true);
-            button.setContentAreaFilled(true);
-            button.setBorderPainted(true);
-        } else {
-            button.setOpaque(false);
-            button.setContentAreaFilled(false);
-            button.setBorderPainted(false);
-        }
+        button.setBackground(backgroundColor);
         button.setForeground(Color.BLACK);
+        button.setOpaque(true);
+        button.setContentAreaFilled(true);
+        button.setBorderPainted(true);
         button.setFont(new Font("Arial", Font.BOLD, 12));
         button.setFocusPainted(false);
         return button;
     }
+
+
 
 
 
