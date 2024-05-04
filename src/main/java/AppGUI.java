@@ -160,10 +160,15 @@ public class AppGUI {
                     .orElse(null);
 
             if (poblacion != null) {
+                StringBuilder comidaDiaria = new StringBuilder();
+                for (int i = 0; i < 30; i++) {
+                    comidaDiaria.append(String.format("Día %d: %d\n", i + 1, poblacion.getComidaPorDia()[i]));
+                }
+
                 String details = String.format(
                         "Nombre: %s\nFecha Inicio: %s\nFecha Fin: %s\nBacterias Iniciales: %d\n" +
                                 "Temperatura: %.1f\nLuminosidad: %s\nComida Inicial: %d\nDía Incremento: %d\n" +
-                                "Comida Incremento: %d\nComida Final: %d",
+                                "Comida Incremento: %d\nComida Final: %d\nComida Diaria:\n%s",
                         poblacion.getNombre(),
                         sdf.format(poblacion.getFechaInicio()),
                         sdf.format(poblacion.getFechaFin()),
@@ -173,7 +178,8 @@ public class AppGUI {
                         poblacion.getComidaInicial(),
                         poblacion.getDiaIncremento(),
                         poblacion.getComidaIncremento(),
-                        poblacion.getComidaFinal()
+                        poblacion.getComidaFinal(),
+                        comidaDiaria.toString()
                 );
                 JOptionPane.showMessageDialog(frame, details, "Detalles de Población", JOptionPane.INFORMATION_MESSAGE);
             } else {
@@ -183,6 +189,7 @@ public class AppGUI {
             JOptionPane.showMessageDialog(frame, "Seleccione una población para ver detalles.", "Error", JOptionPane.WARNING_MESSAGE);
         }
     }
+
 
 
     private void saveExperiment(boolean saveAs) {

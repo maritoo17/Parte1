@@ -70,7 +70,9 @@ public class Poblacion implements Serializable {
         return comidaFinal;
     }
 
-    // Setters
+    public int[] getComidaPorDia() {
+        return comidaPorDia;
+    }
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
@@ -109,6 +111,10 @@ public class Poblacion implements Serializable {
 
     public void setComidaFinal(int comidaFinal) {
         this.comidaFinal = comidaFinal;
+    }
+
+    public void setComidaPorDia(int[] comidaPorDia) {
+        this.comidaPorDia = comidaPorDia;
     }
 
     public void calcularComidaPorDia() {
